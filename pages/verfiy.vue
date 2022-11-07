@@ -69,7 +69,7 @@
                 .then((res) =>{ 
                     console.log(res.data.data)
                     this.$router.push('/');
-                    this.$cookie.set('cookie-1', res.data.data.code, {
+                    this.$cookie.set('cookie-token', res.data.data.token, {
                         path: '/',
                         maxAge: 60 * 60 * 24 * 7
                     });
