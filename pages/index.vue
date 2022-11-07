@@ -1,5 +1,7 @@
 <template>
-  <Tutorial/>
+  <div>
+    Home
+  </div>
 </template>
 
 <script>

@@ -2,20 +2,8 @@
     <div class="container-m register">
         <div class="row">
             <div class="col-lg-6 col-sm-12">
-                <h3>Sign Up</h3>
+                <h3>Reset Password</h3>
                 <form @submit.prevent="onsubmit">
-                    <div>
-                        <input type="text" placeholder="Enter Full Name" v-model="user.fullname"/>
-                    </div>
-                    <div>
-                        <input type="text" placeholder="Enter User Name" v-model="user.username"/>
-                    </div>
-                    <div>
-                        <input type="text" placeholder="Enter E-mail" v-model="user.email"/>
-                    </div>
-                    <div>
-                        <input type="text" placeholder="Enter Phone" v-model="user.phone"/>
-                    </div>
                     <div>
                         <input type="password" placeholder="Enter Password" v-model="user.password"/>
                         <i class="lab la-accessible-icon"></i>
@@ -24,9 +12,8 @@
                         <input type="password" placeholder="Enter password confirm" v-model="user.password_confirm"/>
                         <i class="lab la-accessible-icon"></i>
                     </div>
-                    <input type="submit" value="Sign Up"/>
+                    <input type="submit" value="Reset"/>
                 </form>
-                <p>Are your Have an Account,already?<router-link to="login">Sign In</router-link></p>
             </div>
             <div class="col-lg-6 col-sm-12 img-login">
                 <img src="../assets/login.jpg"/>
@@ -92,26 +79,14 @@ export default {
     data(){
         return{
             user:{
-                fullname:'',
-                username:'',
-                phone:null,
                 password:null,
                 password_confirm:null,
-                email:null,
             }
         }
     },
     methods:{
         onsubmit(){
-            if (!this.user.fullname) {
-                alert('Enter Your Full Name')
-            } else if (!this.user.username) {
-                alert('Enter Your User Name')
-            }else if (!this.user.email) {
-                alert('Enter Your E-Mail')
-            }  else if (!this.user.phone) {
-                alert('Enter Your Phone')
-            }else if (!this.user.password){
+            if (!this.user.password){
                 alert('Enter Your Password ')
             } else if(!this.user.password_confirm) {
                 alert('Enter your Confirm password')
@@ -122,15 +97,11 @@ export default {
             } 
             else {
                 const REQUEST_DATA = new FormData()
-                REQUEST_DATA.append('full_name', this.user.fullname)
-                REQUEST_DATA.append('user_name', this.user.username)
-                REQUEST_DATA.append('phone', this.user.phone)
-                REQUEST_DATA.append('email', this.user.email)
-                REQUEST_DATA.append('password', this.user.password)
-                REQUEST_DATA.append('password_confirmation', this.user.password_confirm)
+                REQUEST_DATA.append('new_password', this.user.password)
+                REQUEST_DATA.append('new_password_confirmation', this.user.password_confirm)
                 this.$axios({
                 method: 'POST',
-                url: 'auth/register',
+                url: 'auth/password/reset',
                 headers: {
                     Authorization: `Bearer`,
                     Accept: 'application/json',
@@ -140,7 +111,7 @@ export default {
                 data: REQUEST_DATA
                 })
                 .then((res) =>{ 
-                    this.$router.push('/verfiy');
+                    this.$router.push('/');
                 })
                 .catch(() => {
                 })
@@ -149,53 +120,3 @@ export default {
     }
 }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*import Vue from 'vue'
-
-import AppButton from '@/components/UI/AppButton'
-import AppControlInput from '@/components/UI/AppControlInput'
-import PostList from '@/components/Posts/PostList'
-
-Vue.component('AppButton', AppButton)
-Vue.component('AppControlInput', AppControlInput)
-Vue.component('PostList', PostList) */

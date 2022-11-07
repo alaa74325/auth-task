@@ -2,19 +2,13 @@
     <div class="container-m register">
         <div class="row">
             <div class="col-lg-6 col-sm-12">
-                <h3>Sign In</h3>
+                <h3>Reset</h3>
                 <form @submit.prevent="onsubmit">
                     <div>
                         <input type="text" placeholder="Enter Phone" v-model="user.phone"/>
                     </div>
-                    <div>
-                        <input type="password" placeholder="Enter Password" v-model="user.password"/>
-                        <i class="lab la-accessible-icon"></i>
-                    </div>
-                    <p><router-link to="forget">Forget Password?</router-link></p>
-                    <input type="submit" value="Sign In"/>
+                    <input type="submit" value="Send"/>
                 </form>
-                <p>Are you need to <router-link to="register">Sign Up </router-link>?</p>
             </div>
             <div class="col-lg-6 col-sm-12 img-login">
                 <img src="../assets/login.jpg"/>
@@ -89,18 +83,13 @@ export default {
         onsubmit(){
              if (!this.user.phone) {
                 alert('Enter Your Phone')
-            }else if (!this.user.password){
-                alert('Enter Your Password ')
-            }  else if (this.user.password.length < 6) {
-                alert('your Password is too short')
-            }  
+            } 
             else {
                 const REQUEST_DATA = new FormData()
                 REQUEST_DATA.append('phone', this.user.phone)
-                REQUEST_DATA.append('password', this.user.password)
                 this.$axios({
                 method: 'POST',
-                url: 'auth/login',
+                url: 'auth/password/forget',
                 headers: {
                     Authorization: `Bearer`,
                     Accept: 'application/json',
@@ -110,7 +99,7 @@ export default {
                 data: REQUEST_DATA
                 })
                 .then((res) =>{ 
-                    this.$router.push('/');
+                    this.$router.push('setpassword');
                     this.$cookie.set('cookie-1', res.data.data.code, {
                         path: '/',
                         maxAge: 60 * 60 * 24 * 7
@@ -119,22 +108,8 @@ export default {
                 .catch(() => {
                 })
             }
-        }
+        },
+        get
     }
 }
 </script>
-
-
-
-
-
-
-/*import Vue from 'vue'
-
-import AppButton from '@/components/UI/AppButton'
-import AppControlInput from '@/components/UI/AppControlInput'
-import PostList from '@/components/Posts/PostList'
-
-Vue.component('AppButton', AppButton)
-Vue.component('AppControlInput', AppControlInput)
-Vue.component('PostList', PostList) */
