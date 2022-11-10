@@ -128,6 +128,8 @@ export default {
                 REQUEST_DATA.append('email', this.user.email)
                 REQUEST_DATA.append('password', this.user.password)
                 REQUEST_DATA.append('password_confirmation', this.user.password_confirm)
+                REQUEST_DATA.append('device_type','ios')
+                REQUEST_DATA.append('device_token', 'asdasdasdasdasda')
                 this.$axios({
                 method: 'POST',
                 url: 'auth/register',
@@ -141,6 +143,16 @@ export default {
                 })
                 .then((res) =>{ 
                     this.$router.push('/verfiy');
+                    const options = {
+                        path: '/',
+                        maxAge: 60 * 60 * 24 * 7
+                    }
+                    const cookieList = [
+                        { name: 'cookie-phone', value: res.data.data.phone, opts: options },
+                        { name: 'cookie-code', value: res.data.data.code, opts: options },
+                    ]
+                    this.$cookies.setAll(cookieList);
+                    console.log(res.data.data.code);
                 })
                 .catch(() => {
                 })
