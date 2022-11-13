@@ -142,7 +142,7 @@ export default {
                 data: REQUEST_DATA
                 })
                 .then((res) =>{ 
-                    this.$router.push('/verfiy');
+                    this.$router.push(`/verfiy/verify_create_account`);
                     const options = {
                         path: '/',
                         maxAge: 60 * 60 * 24 * 7

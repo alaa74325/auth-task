@@ -82,7 +82,8 @@ export default {
             user:{
                 phone:null,
                 password:null
-            }
+            },
+            set:true
         }
     },
     methods:{
@@ -96,8 +97,10 @@ export default {
             }  
             else {
                 const REQUEST_DATA = new FormData()
-                REQUEST_DATA.append('phone', this.user.phone)
+                REQUEST_DATA.append('email', this.user.phone)
                 REQUEST_DATA.append('password', this.user.password)
+                REQUEST_DATA.append('device_type','ios')
+                REQUEST_DATA.append('device_token', 'asdasdasdasdasda')
                 this.$axios({
                 method: 'POST',
                 url: 'auth/login',
@@ -111,10 +114,16 @@ export default {
                 })
                 .then((res) =>{ 
                     this.$router.push('/');
-                    this.$cookie.set('cookie-1', res.data.data.code, {
+                    this.$cookies.set('cookie-token', res.data.data.token, {
                         path: '/',
                         maxAge: 60 * 60 * 24 * 7
                     });
+                    const all=[{ name: 'cookie-fullname', value: res.data.data.full_name },
+                        { name: 'cookie-token', value: res.data.data.email},
+                        { name: 'cookie-phone', value: res.data.data.phone},
+                        { name: 'cookie-username', value: res.data.data.user_name},
+                        { name: 'cookie-email', value: res.data.data.email}];
+                    this.$cookies.setAll(all);
                 })
                 .catch(() => {
                 })

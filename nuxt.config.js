@@ -58,7 +58,11 @@ styleResources: {
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
-    ['cookie-universal-nuxt' , {alias:'cookiz'}],
+    ['cookie-universal-nuxt' , {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7
+}],
+
   ],
   vuetify: {
     customVariables: ['~/assets/SCSS/variables.scss'],
@@ -80,7 +84,7 @@ styleResources: {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: ' https://backend.zahaaksa.com/api/',
+    baseURL: 'https://backend.zahaaksa.com/api/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -87,6 +87,9 @@ export default {
             else {
                 const REQUEST_DATA = new FormData()
                 REQUEST_DATA.append('phone', this.user.phone)
+                this.$cookies.set('cookie-phone', this.user.phone)
+                REQUEST_DATA.append('device_type','ios')
+                REQUEST_DATA.append('device_token', 'asdasdasdasdasda')
                 this.$axios({
                 method: 'POST',
                 url: 'auth/password/forget',
@@ -99,17 +102,15 @@ export default {
                 data: REQUEST_DATA
                 })
                 .then((res) =>{ 
-                    this.$router.push('setpassword');
-                    this.$cookie.set('cookie-1', res.data.data.code, {
-                        path: '/',
-                        maxAge: 60 * 60 * 24 * 7
-                    });
+                    this.$router.push(`verfiy/verify_contact_data`);
+                    this.$cookies.set('cookie-code', res.data.code);
                 })
                 .catch(() => {
                 })
             }
         },
-        get
+    },
+    mounted(){
     }
 }
 </script>

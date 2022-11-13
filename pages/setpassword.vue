@@ -97,6 +97,8 @@ export default {
             } 
             else {
                 const REQUEST_DATA = new FormData()
+                const cookiephone = this.$cookies.get('cookie-phone');
+                REQUEST_DATA.append('phone', cookiephone)
                 REQUEST_DATA.append('new_password', this.user.password)
                 REQUEST_DATA.append('new_password_confirmation', this.user.password_confirm)
                 this.$axios({
@@ -111,7 +113,8 @@ export default {
                 data: REQUEST_DATA
                 })
                 .then((res) =>{ 
-                    this.$router.push('/');
+                    this.$router.push('/login');
+                    this.$cookies.removeAll();
                 })
                 .catch(() => {
                 })
